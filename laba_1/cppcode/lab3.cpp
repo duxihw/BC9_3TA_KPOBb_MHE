@@ -203,9 +203,8 @@ int main() {
         }
 
         // --- Неравномерное распределение ---
-        // Веса: чем меньше индекс, тем выше вероятность (линейно убывающие)
         IntArray weights(N);
-        for (int i = 0; i < N; ++i) weights[i] = N - i;
+        for (int i = 0; i < N; ++i) weights[i] = (N/2 - i)*(N/2 - i);
         std::discrete_distribution<int> nonuniform_dist(weights.begin(), weights.end());
 
         // Стратегия A

@@ -105,7 +105,7 @@ bool binary_search(const IntArray& arr, int key, unsigned long long& o) {
         ++o;
         int mid = left + (right - left) / 2; ++o;
         ++o;
-        if (arr[mid] == key) { ++o; return true; }
+        if (arr[mid] == key) { ++o; std::cout << arr[mid]; return true; }
         ++o;
         if (arr[mid] < key) { ++o; left = mid + 1; }
         else { ++o; right = mid - 1; }
@@ -173,7 +173,7 @@ int main() {
         // start = std::chrono::steady_clock::now();
         o = 0;
         for (int r = 0; r < 1e6; ++r) {
-            binary_search(sorted_arr, -dist(gen), o);
+            binary_search(sorted_arr, sorted_arr[0 + bool_dist(gen) * (N - 1)], o);
         }
         auto time_binary_bad = o;
         // end = std::chrono::steady_clock::now();

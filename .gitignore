@@ -1,0 +1,38 @@
+# Build artifacts
+build/
+bin/
+*/bin/
+obj/
+*.o
+*.exe
+*.out
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.key
+*.pem
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
