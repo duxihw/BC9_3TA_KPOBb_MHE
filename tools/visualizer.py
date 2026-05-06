@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class LabVisualizer:
-    def __init__(self, lab_name, project_root=os.path.join('..', '..')):
+    def __init__(self, lab_name, project_root=os.path.join('..', '..'), global_style=True):
         """
         Инициализация визуализатора для конкретной лабораторной.
         project_root по умолчанию "..\\..", так как предполагается запуск скриптов из папок laba_X\\bin.
@@ -16,7 +16,7 @@ class LabVisualizer:
         # Создаем папку для графиков, если ее еще нет
         os.makedirs(self.plots_dir, exist_ok=True)
 
-        self._apply_global_style()
+        if global_style: self._apply_global_style()
         self.fig = None
         self.ax = None
 

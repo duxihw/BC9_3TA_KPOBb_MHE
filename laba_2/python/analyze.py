@@ -87,6 +87,18 @@ def run_analysis():
             xlabel="Количество элементов (N)",
             ylabel="Время (мс)"
         )
+        viz.save_plot("shakerw_N.png")
+
+        viz.create_plot()
+        viz.add_line(comb_df['N'], comb_df['ForwardTime_ms'], label='Shaker Sort', color='#3498db')
+        viz.add_line(comb_df['N'], comb_df['BackwardTime_ms'], label='Shaker Sort', color='#e74c3c')
+        viz.add_line(comb_df['N'], comb_df['ShakerTime_ms'], label='Shaker Sort', color='#2ecc71')
+        
+        viz.set_labels(
+            title="Производительность шейкерной сортировки",
+            xlabel="Количество элементов (N)",
+            ylabel="Время (мс)"
+        )
         viz.save_plot("shaker_N.png")
 
     except FileNotFoundError:

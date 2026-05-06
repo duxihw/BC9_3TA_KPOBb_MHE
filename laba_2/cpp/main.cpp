@@ -39,19 +39,20 @@ void shaker_run() {
         copy_array(original, working, N);
         auto start = std::chrono::high_resolution_clock::now();
         for (unsigned i = 0; i < N; i++)
-            forward_step(working, 0, N);
+            forward_step(working, 0, N - i);
         auto end = std::chrono::high_resolution_clock::now();
         double t1 = std::chrono::duration<double, std::milli>(end - start).count();
 
         copy_array(original, working, N);
         start = std::chrono::high_resolution_clock::now();
         for (unsigned i = 0; i < N; i++)
-            backward_step(working, 0, N);
+            backward_step(working, i, N);
         end = std::chrono::high_resolution_clock::now();
         double t2 = std::chrono::duration<double, std::milli>(end - start).count();
 
+        copy_array(original, working, N);
         start = std::chrono::high_resolution_clock::now();
-        shaker_sort(original, 0, N);
+        shaker_sort(working, 0, N);
         end = std::chrono::high_resolution_clock::now();
         double t3 = std::chrono::duration<double, std::milli>(end - start).count();
 
