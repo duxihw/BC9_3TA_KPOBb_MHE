@@ -74,7 +74,6 @@ def run_analysis():
     # Диаграмма для |v|
     subset = df[(df['Variable'] == '|v|') & (df['N_points'] == 350)].copy()
     
-    # Создаем уникальную метку для оси X (так как N фиксировано, выводим только T)
     subset['Label'] = subset.apply(lambda r: f"T={r['T']}", axis=1)
     
     methods = subset['Method'].unique()
@@ -85,7 +84,7 @@ def run_analysis():
     x = np.arange(len(labels))
     width = 0.15
     
-    
+    viz.ax.set_yscale('log')
     for i, method in enumerate(methods):
         method_data = subset[subset['Method'] == method]
         
@@ -111,7 +110,6 @@ def run_analysis():
 
     subset = df[(df['Variable'] == 'v^2') & (df['N_points'] == 350)].copy()
     
-    # Создаем уникальную метку для оси X (так как N фиксировано, выводим только T)
     subset['Label'] = subset.apply(lambda r: f"T={r['T']}", axis=1)
     
     methods = subset['Method'].unique()
@@ -122,7 +120,7 @@ def run_analysis():
     x = np.arange(len(labels))
     width = 0.15
     
-    
+    viz.ax.set_yscale('log')
     for i, method in enumerate(methods):
         method_data = subset[subset['Method'] == method]
         

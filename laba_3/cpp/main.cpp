@@ -20,11 +20,29 @@ float* linspace(float start, float end, int size) {
     return f;
 }
 
+double* d_linspace(double start, double end, int size) {
+    double* f = new double[size--];
+    for (int i = 0; i <= size; ++i) {
+        f[i] = start + (end - start) * (1.f * i / size);
+    }
+    return f;
+}
+
 float* Maxwell_distribution(float T, float start, float stop, unsigned size) {
     float *distr = new float[size--];
     for (unsigned i = 0; i <= size; i++)
     {
         float v = start + (stop - start) * (1.f * i / size);
+        distr[i] = exp(0 - v*v / T) / sqrt(T*M_PI);
+    }
+    return distr;
+}
+
+double* d_Maxwell_distribution(double T, double start, double stop, unsigned size) {
+    double *distr = new double[size--];
+    for (unsigned i = 0; i <= size; i++)
+    {
+        double v = start + (stop - start) * (1.f * i / size);
         distr[i] = exp(0 - v*v / T) / sqrt(T*M_PI);
     }
     return distr;
@@ -92,7 +110,7 @@ float fma_mean(float const *psi, float const *pdf, float const dv, unsigned size
     return sum;
 }
 
-double d_mean(float const *psi, float const *pdf, float const dv, unsigned size) {
+double d_mean(double const *psi, double const *pdf, double const dv, unsigned size) {
     double sum = 0.;
     double c = 0.;
     for (unsigned i = 0; i != size; i++)
@@ -136,18 +154,31 @@ void write_experiment_results() {
     auto execute_test = [&](float T, unsigned size) {
         float bound = 5.0f * std::sqrt(T); 
         float dv = (2.0f * bound) / (size - 1);
+        
+        double d_bound = 5.0f * std::sqrt(T); 
+        double d_dv = (2.0f * d_bound) / (size - 1);
 
         float* psi = Maxwell_distribution(T, -bound, bound, size);
         float* pdf_abs_v = linspace(-bound, bound, size);
         float* pdf_v2 = new float[size];
 
+        double* d_psi = d_Maxwell_distribution(T, -d_bound, d_bound, size);
+        double* d_pdf_abs_v = d_linspace(-d_bound, d_bound, size);
+        double* d_pdf_v2 = new double[size];
+
         for (unsigned i = 0; i < size; i++) {
             if (pdf_abs_v[i] < 0) pdf_abs_v[i] = -pdf_abs_v[i];
             pdf_v2[i] = pdf_abs_v[i] * pdf_abs_v[i];
+
+            if (d_pdf_abs_v[i] < 0) d_pdf_abs_v[i] = -d_pdf_abs_v[i];
+            d_pdf_v2[i] = d_pdf_abs_v[i] * d_pdf_abs_v[i];
         }
 
         double anal_abs_v = std::sqrt(T / M_PI);
         double anal_v2 = T / 2.0;
+
+        std::cout << std::setprecision(16) << anal_abs_v << std::endl
+                  << std::setprecision(16) << anal_v2    << std::endl;
 
         // 1. Recurrent Mean
         record_experiment("Recurrent", T, size, "|v|", recurent_mean(psi, pdf_abs_v, dv, size), anal_abs_v);
@@ -166,8 +197,13 @@ void write_experiment_results() {
         record_experiment("FMA", T, size, "v^2", fma_mean(psi, pdf_v2, dv, size), anal_v2);
 
         // 5. Double Mean
-        record_experiment("Double", T, size, "|v|", d_mean(psi, pdf_abs_v, dv, size), anal_abs_v);
-        record_experiment("Double", T, size, "v^2", d_mean(psi, pdf_v2, dv, size), anal_v2);
+        record_experiment("Double", T, size, "|v|", d_mean(d_psi, d_pdf_abs_v, d_dv, size), anal_abs_v);
+        record_experiment("Double", T, size, "v^2", d_mean(d_psi, d_pdf_v2, d_dv, size), anal_v2);
+
+        
+        delete[] d_psi;
+        delete[] d_pdf_abs_v;
+        delete[] d_pdf_v2;
 
         delete[] psi;
         delete[] pdf_abs_v;

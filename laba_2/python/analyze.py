@@ -23,6 +23,9 @@ def run_analysis():
         viz.add_line(shell_df['N'], shell_df['HibbardTime_ms'], label='Hibbard (2^i - 1)', color='#e74c3c', marker='s')
         viz.add_line(shell_df['N'], shell_df['FiboTime_ms'], label='Fibonacci', color='#2ecc71', marker='^')
         
+        viz.ax.set_xscale('log')
+        viz.ax.set_yscale('log')
+        
         viz.set_labels(
             title="Сравнение времени работы: Сортировка Шелла",
             xlabel="Количество элементов (N)",
@@ -35,6 +38,9 @@ def run_analysis():
         viz.add_line(shell_df['N'], shell_df['ShellSwaps'], label='Classic', color='#3498db')
         viz.add_line(shell_df['N'], shell_df['HibbardSwaps'], label='Hibbard', color='#e74c3c', marker='s')
         viz.add_line(shell_df['N'], shell_df['FiboSwaps'], label='Fibonacci', color='#2ecc71', marker='^')
+                
+        viz.ax.set_xscale('log')
+        viz.ax.set_yscale('log')
         
         viz.set_labels(
             title="Сравнение перестановок: Сортировка Шелла",
@@ -53,6 +59,9 @@ def run_analysis():
         viz.create_plot()
         viz.add_line(comb_df['N'], comb_df['CombTime_ms'], label='Comb Sort', color='#9b59b6')
         
+        viz.ax.set_xscale('log')
+        viz.ax.set_yscale('log')
+        
         viz.set_labels(
             title="Производительность сортировки расчёской (N)",
             xlabel="Количество элементов (N)",
@@ -63,6 +72,9 @@ def run_analysis():
         viz.create_plot()
         viz.add_line(comb_df['N'], comb_df['CombSteps'], label='Comb Sort', color='#9b59b6')
         
+        viz.ax.set_xscale('log')
+        viz.ax.set_yscale('log')
+
         viz.set_labels(
             title="Производительность сортировки расчёской (swaps)",
             xlabel="Количество перестановок (swaps)",
@@ -94,6 +106,9 @@ def run_analysis():
         viz.add_line(comb_df['N'], comb_df['BackwardTime_ms'], label='Shaker Sort', color='#e74c3c')
         viz.add_line(comb_df['N'], comb_df['ShakerTime_ms'], label='Shaker Sort', color='#2ecc71')
         
+        viz.ax.set_xscale('log')
+        viz.ax.set_yscale('log')
+
         viz.set_labels(
             title="Производительность шейкерной сортировки",
             xlabel="Количество элементов (N)",
