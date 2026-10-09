@@ -1,0 +1,7 @@
+name,expected_value
+"Dice(100)",50.5361
+"ThreeDicePool(6,6,6)",10.497
+"DoubleDice(penalty part)",33.7662
+"DoubleDice(bonus part)",67.2362
+"DoubleDiceComposite(penalty)",33.8421
+"DoubleDiceComposite(bonus)",67.1739
