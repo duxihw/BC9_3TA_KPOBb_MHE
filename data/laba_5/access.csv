@@ -1,0 +1,107 @@
+dims,n,elements,method,order,ns_per_element
+2,64,4096,std::vector,rows,0.21118164
+2,64,4096,"flat g(y,x)",rows,0.32324219
+2,64,4096,flat g[y][x],rows,0.2121582
+2,64,4096,"nested g(y,x)",rows,0.20874023
+2,64,4096,nested g[y][x],rows,0.21044922
+2,64,4096,std::vector,columns,0.45874023
+2,64,4096,"flat g(y,x)",columns,0.90161133
+2,64,4096,flat g[y][x],columns,0.45898438
+2,64,4096,"nested g(y,x)",columns,0.39111328
+2,64,4096,nested g[y][x],columns,0.60644531
+2,128,16384,std::vector,rows,0.19702148
+2,128,16384,"flat g(y,x)",rows,0.3092041
+2,128,16384,flat g[y][x],rows,0.1973877
+2,128,16384,"nested g(y,x)",rows,0.19622803
+2,128,16384,nested g[y][x],rows,0.19677734
+2,128,16384,std::vector,columns,0.67694092
+2,128,16384,"flat g(y,x)",columns,0.93530273
+2,128,16384,flat g[y][x],columns,0.69702148
+2,128,16384,"nested g(y,x)",columns,0.44934082
+2,128,16384,nested g[y][x],columns,0.64837646
+2,256,65536,std::vector,rows,0.19035339
+2,256,65536,"flat g(y,x)",rows,0.30084229
+2,256,65536,flat g[y][x],rows,0.19076538
+2,256,65536,"nested g(y,x)",rows,0.19018555
+2,256,65536,nested g[y][x],rows,0.19029236
+2,256,65536,std::vector,columns,0.66143799
+2,256,65536,"flat g(y,x)",columns,0.90843201
+2,256,65536,flat g[y][x],columns,0.67718506
+2,256,65536,"nested g(y,x)",columns,0.49620056
+2,256,65536,nested g[y][x],columns,0.61927795
+2,512,262144,std::vector,rows,0.20236969
+2,512,262144,"flat g(y,x)",rows,0.32691574
+2,512,262144,flat g[y][x],rows,0.20809174
+2,512,262144,"nested g(y,x)",rows,0.20666122
+2,512,262144,nested g[y][x],rows,0.20622253
+2,512,262144,std::vector,columns,1.6750679
+2,512,262144,"flat g(y,x)",columns,1.3365021
+2,512,262144,flat g[y][x],columns,1.4533005
+2,512,262144,"nested g(y,x)",columns,1.3248253
+2,512,262144,nested g[y][x],columns,1.3203163
+2,1024,1048576,std::vector,rows,0.31282711
+2,1024,1048576,"flat g(y,x)",rows,0.42796803
+2,1024,1048576,flat g[y][x],rows,0.32366657
+2,1024,1048576,"nested g(y,x)",rows,0.33112335
+2,1024,1048576,nested g[y][x],rows,0.33170414
+2,1024,1048576,std::vector,columns,5.1394882
+2,1024,1048576,"flat g(y,x)",columns,6.1218719
+2,1024,1048576,flat g[y][x],columns,6.3968439
+2,1024,1048576,"nested g(y,x)",columns,2.5402784
+2,1024,1048576,nested g[y][x],columns,2.4422359
+2,2048,4194304,std::vector,rows,0.64785695
+2,2048,4194304,"flat g(y,x)",rows,0.61172295
+2,2048,4194304,flat g[y][x],rows,0.65135407
+2,2048,4194304,"nested g(y,x)",rows,0.67224908
+2,2048,4194304,nested g[y][x],rows,0.67683959
+2,2048,4194304,std::vector,columns,12.720552
+2,2048,4194304,"flat g(y,x)",columns,11.484852
+2,2048,4194304,flat g[y][x],columns,11.14762
+2,2048,4194304,"nested g(y,x)",columns,8.6593056
+2,2048,4194304,nested g[y][x],columns,9.6113584
+2,4096,16777216,std::vector,rows,0.68188822
+2,4096,16777216,"flat g(y,x)",rows,0.69717783
+2,4096,16777216,flat g[y][x],rows,0.66764146
+2,4096,16777216,"nested g(y,x)",rows,0.59465712
+2,4096,16777216,nested g[y][x],rows,0.59108812
+2,4096,16777216,std::vector,columns,14.682183
+2,4096,16777216,"flat g(y,x)",columns,14.74734
+2,4096,16777216,flat g[y][x],columns,14.368785
+2,4096,16777216,"nested g(y,x)",columns,10.387782
+2,4096,16777216,nested g[y][x],columns,10.177986
+3,8,512,std::vector,rows,0.41601562
+3,8,512,"nested g(z,y,x)",rows,0.4375
+3,8,512,nested g[z][y][x],rows,0.72265625
+3,8,512,std::vector,columns,0.56640625
+3,8,512,"nested g(z,y,x)",columns,0.734375
+3,8,512,nested g[z][y][x],columns,0.57421875
+3,16,4096,std::vector,rows,0.27685547
+3,16,4096,"nested g(z,y,x)",rows,0.40307617
+3,16,4096,nested g[z][y][x],rows,0.65600586
+3,16,4096,std::vector,columns,0.46777344
+3,16,4096,"nested g(z,y,x)",columns,0.66137695
+3,16,4096,nested g[z][y][x],columns,0.53491211
+3,32,32768,std::vector,rows,0.23373413
+3,32,32768,"nested g(z,y,x)",rows,0.35470581
+3,32,32768,nested g[z][y][x],rows,0.61361694
+3,32,32768,std::vector,columns,0.87387085
+3,32,32768,"nested g(z,y,x)",columns,0.77023315
+3,32,32768,nested g[z][y][x],columns,0.7456665
+3,64,262144,std::vector,rows,0.21654129
+3,64,262144,"nested g(z,y,x)",rows,0.41680908
+3,64,262144,nested g[z][y][x],rows,0.60424042
+3,64,262144,std::vector,columns,1.8362503
+3,64,262144,"nested g(z,y,x)",columns,1.3107224
+3,64,262144,nested g[z][y][x],columns,1.166111
+3,128,2097152,std::vector,rows,0.31202602
+3,128,2097152,"nested g(z,y,x)",rows,0.65001822
+3,128,2097152,nested g[z][y][x],rows,0.86212969
+3,128,2097152,std::vector,columns,5.9361787
+3,128,2097152,"nested g(z,y,x)",columns,9.0931773
+3,128,2097152,nested g[z][y][x],columns,5.4521298
+3,256,16777216,std::vector,rows,0.59160691
+3,256,16777216,"nested g(z,y,x)",rows,0.70318544
+3,256,16777216,nested g[z][y][x],rows,0.82856417
+3,256,16777216,std::vector,columns,12.993437
+3,256,16777216,"nested g(z,y,x)",columns,8.4377446
+3,256,16777216,nested g[z][y][x],columns,9.1651564

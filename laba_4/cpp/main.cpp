@@ -4,6 +4,7 @@
 #include <string>
 #include <filesystem>
 
+// подумать почему конструктор не может быть виртуальным !!!
 class RandomVariable {
 public:
     virtual unsigned roll() = 0;
@@ -45,7 +46,7 @@ double expected_value(RandomVariable &rv, unsigned number_of_rolls = 1) {
     auto accum = 0llu;
     for (unsigned cnt = 0; cnt != number_of_rolls; ++cnt)
         accum += rv.roll();
-    return static_cast<double>(accum) / number_of_rolls;
+    return static_cast<double>(accum) / static_cast<double>(number_of_rolls);
 }
 
 class PenaltyDice : public RandomVariable {
@@ -82,7 +83,7 @@ double value_probability(unsigned value, RandomVariable &d, unsigned number_of_r
     for (unsigned cnt = 0; cnt != number_of_rolls; ++cnt)
         if (d.roll() == value)
             ++hits;
-    return static_cast<double>(hits) / number_of_rolls;
+    return static_cast<double>(hits) / static_cast<double>(number_of_rolls);
 }
 
 void save_histogram_csv(const std::string &filepath, RandomVariable &d,
@@ -115,7 +116,7 @@ private:
 };
 
 int main() {
-    const unsigned N = 200000;
+    const unsigned N = 2e5;
 
     std::string data_dir = "../../data/laba_4";
     std::filesystem::create_directories(data_dir);
@@ -135,12 +136,19 @@ int main() {
     Dice base100(100, 42);
     PenaltyDice pen100(base100);
     BonusDice   bon100(base100);
+    
+    ev_out << "\"PenaltyDice\"," << expected_value(pen100, N) << '\n';
+    ev_out << "\"BonusDice\"," << expected_value(bon100, N) << '\n';
 
     save_histogram_csv(data_dir + "/dice100_normal.csv", base100, 1, 100, N);
     save_histogram_csv(data_dir + "/dice100_penalty.csv", pen100, 1, 100, N);
     save_histogram_csv(data_dir + "/dice100_bonus.csv", bon100, 1, 100, N);
 
-    Dice t1(6, 101), t2(6, 202), t3(6, 303);
+    std::cout << "Данные по PenaltyDice успешно записаны" << std::endl;
+    std::cout << "Данные по BonusDice успешно записаны" << std::endl;
+
+    // Dice t1(6, 67), t2(6, 202*67 + 52), t3(6, 3*69 - 42);
+    Dice t1(6, 1), t2(6, 2), t3(6, 3);
     ThreeDicePool tdp2(t1, t2, t3);
     PenaltyDice pen_tdp(tdp2);
     BonusDice   bon_tdp(tdp2);
@@ -148,6 +156,8 @@ int main() {
     save_histogram_csv(data_dir + "/tdp_normal.csv", tdp2, 3, 18, N);
     save_histogram_csv(data_dir + "/tdp_penalty.csv", pen_tdp, 3, 18, N);
     save_histogram_csv(data_dir + "/tdp_bonus.csv", bon_tdp, 3, 18, N);
+
+    std::cout << "Данные по ThreeDicePool успешно записаны" << std::endl;
 
     /* Задание 3 */
     Dice base_dd(100, 777);
@@ -158,13 +168,15 @@ int main() {
 
     save_histogram_csv(data_dir + "/doubledice_penalty.csv", static_cast<PenaltyDice&>(dd), 1, 100, N);
     save_histogram_csv(data_dir + "/doubledice_bonus.csv", static_cast<BonusDice&>(dd), 1, 100, N);
+    
+        std::cout << "Данные по DoubleDice успешно записаны" << std::endl;
 
     Dice base_dd2(100, 888);
     DoubleDiceComposite ddc(base_dd2);
-
+    
     ev_out << "\"DoubleDiceComposite(penalty)\"," << expected_value(ddc.penalty_dice(), N) << '\n';
     ev_out << "\"DoubleDiceComposite(bonus)\"," << expected_value(ddc.bonus_dice(), N) << '\n';
-
+    
     ev_out.close();
 
     std::cout << "Данные успешно записаны в: " << data_dir << std::endl;

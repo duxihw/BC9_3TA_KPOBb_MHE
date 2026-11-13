@@ -1,0 +1,9 @@
+impl,operation,alpha,ns_at_max,ns_per_element_at_max,allocations_at_max,element_copies_at_max,n_max
+flat,copy_assign,1.30712,5.4065e+06,1.28901,1,4194304,2048
+flat,copy_ctor,1.36244,5.71373e+06,1.36226,1,4194304,2048
+flat,move_assign,0.00437412,1.537,3.66449e-07,0,0,2048
+flat,move_ctor,0.00210696,2.8544,6.80542e-07,0,0,2048
+nested,copy_assign,1.11507,5.35029e+06,1.27561,2049,4194304,2048
+nested,copy_ctor,1.17864,4.66908e+06,1.11319,2049,4194304,2048
+nested,move_assign,0.032186,2.0126,4.79841e-07,0,0,2048
+nested,move_ctor,0.0452009,4.6042,1.09773e-06,0,0,2048
