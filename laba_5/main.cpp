@@ -12,15 +12,15 @@ public:
 
     Grid() = default;
 
-    explicit Grid(size_type count) : size(count), data(new T[size]) {}
+    explicit Grid(size_type count) : size(count), data(static_cast<T*>(::operator new(sizeof(T) * size))) {}
 
     Grid(size_type count, const T& value) : Grid(count) {
         *this = value;
     }
 
     // Копирование создаёт отдельный массив.
-    Grid(const Grid& other) : size(other.size), data(new T[size]) {
-        for (size_type i = 0; i < size; ++i) data[i] = other.data[i];
+    Grid(const Grid& other) : size(other.size), data(static_cast<T*>(::operator new(sizeof(T) * size))) {
+        for (size_type i = 0; i < size; ++i) ::new (data + i) T(other.data[i]);
     }
 
     // Перемещение передаёт владение массивом.
@@ -48,10 +48,10 @@ public:
         return *this;
     }
 
-    ~Grid() { delete[] data; }
+    ~Grid() { ::operator delete(data); }
 
     Grid& operator=(const T& value) {
-        for (size_type i = 0; i < size; ++i) data[i] = value;
+        for (size_type i = 0; i < size; ++i) ::new (data + i) T(value);
         return *this;
     }
 
@@ -178,48 +178,21 @@ private:
     }
 };
 
+struct Bad {
+
+    Bad() = delete;
+
+    Bad(int size) : size(size) {};
+
+    //подразумевается, что "плохой" объект без конструктора по умолчанию имеет конструктор копирования T(const T&), иначе пошёл он на йух
+
+    int size = 0;
+};
+
 int main() {
-    Grid<float> single = 3.5f;
-    std::cout << "Single element: " << single(0, 0) << '\n';
+    Bad b = Bad(3);
 
-    Grid<float> g(3, 2, 0.0f);
-    std::cout << "Grid size: " << g.get_y_size() << " x "
-              << g.get_x_size() << '\n';
+    Grid g = Grid<Bad, 5>(1, 1, 1, 1, 0, b);
 
-    for (unsigned y = 0; y < g.get_y_size(); ++y) {
-        for (unsigned x = 0; x < g.get_x_size(); ++x) {
-            g[y][x] = 1.0f;
-            std::cout << g(y, x) << ' ';
-        }
-        std::cout << '\n';
-    }
-
-    Grid<float> copy = g;
-    copy[0][0] = 9.0f;
-    std::cout << "Original: " << g(0, 0)
-              << ", copy: " << copy(0, 0) << '\n';
-
-    // Приведение к rvalue-ссылке выбирает конструктор перемещения.
-    Grid<float> moved = static_cast<Grid<float>&&>(copy);
-    std::cout << "Moved element: " << moved(0, 0) << '\n';
-
-    Grid<float> assigned;
-    assigned = g;
-    assigned = static_cast<Grid<float>&&>(moved);
-    std::cout << "After move assignment: " << assigned(0, 0) << '\n';
-
-    g = 5.0f;
-    std::cout << "After filling: " << g(2, 1) << '\n';
-    // Трёхмерная сетка состоит из двумерных, а те — из строк.
-    const Grid<float, 3> cube(2, 3, 4, 1.0f);
-    Grid<float> slice(2, 5, 2.0f);
-    slice = cube[1];
-    std::cout << "Cube element: " << cube(1, 1, 1) << '\n';
-    std::cout << "Slice size: " << slice.get_y_size() << " x "
-              << slice.get_x_size() << '\n';
-
-    Grid<int, 4> space(2, 3, 4, 5, 0);
-    space[1][2][3][4] = 7;
-    std::cout << "4D element: " << space(1, 2, 3, 4) << '\n';
     return 0;
 }
